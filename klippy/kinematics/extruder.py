@@ -248,6 +248,13 @@ class PrinterExtruder:
                           move.start_pos[ea_index], 0., 0.,
                           1., can_pressure_advance, 0.,
                           start_v, cruise_v, accel)
+        gcode = self.printer.lookup_object("gcode")
+        gcode.respond(
+            f"[Extruder] process_move: "
+            f"start={move.start_pos[ea_index]:.6f}, end={move.end_pos[ea_index]:.6f}, "
+            f"axes_d={move.axes_d}, axes_r={move.axes_r}, "
+            f"accel={move.accel:.3f}, start_v={move.start_v:.3f}, cruise_v={move.cruise_v:.3f}"
+        )
         self.last_position = move.end_pos[ea_index]
     def find_past_position(self, print_time):
         if self.extruder_stepper is None:
